@@ -1,0 +1,42 @@
+<svg width="100%" height="100%" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1440" height="800" fill="#0f172a"></rect>
+  
+  <!-- Grid -->
+  <g stroke="#1e293b" stroke-width="1">
+    <line x1="0" y1="100" x2="1440" y2="100"></line>
+    <line x1="0" y1="200" x2="1440" y2="200"></line>
+    <line x1="0" y1="300" x2="1440" y2="300"></line>
+    <line x1="0" y1="400" x2="1440" y2="400"></line>
+    <line x1="0" y1="500" x2="1440" y2="500"></line>
+    <line x1="0" y1="600" x2="1440" y2="600"></line>
+    <line x1="0" y1="700" x2="1440" y2="700"></line>
+    
+    <line x1="240" y1="0" x2="240" y2="800"></line>
+    <line x1="480" y1="0" x2="480" y2="800"></line>
+    <line x1="720" y1="0" x2="720" y2="800"></line>
+    <line x1="960" y1="0" x2="960" y2="800"></line>
+    <line x1="1200" y1="0" x2="1200" y2="800"></line>
+  </g>
+
+  <!-- Dados (círculos como nós de rede) -->
+  <circle cx="300" cy="500" r="5" fill="#38bdf8"></circle>
+  <circle cx="400" cy="300" r="5" fill="#38bdf8"></circle>
+  <circle cx="500" cy="600" r="5" fill="#38bdf8"></circle>
+  <circle cx="600" cy="350" r="5" fill="#38bdf8"></circle>
+  <circle cx="700" cy="450" r="5" fill="#38bdf8"></circle>
+  <circle cx="800" cy="250" r="5" fill="#38bdf8"></circle>
+  <circle cx="900" cy="550" r="5" fill="#38bdf8"></circle>
+  <circle cx="1000" cy="400" r="5" fill="#38bdf8"></circle>
+
+  <!-- Conexões -->
+  <line x1="300" y1="500" x2="400" y2="300" stroke="#0ea5e9" stroke-width="1"></line>
+  <line x1="400" y1="300" x2="500" y2="600" stroke="#0ea5e9" stroke-width="1"></line>
+  <line x1="500" y1="600" x2="600" y2="350" stroke="#0ea5e9" stroke-width="1"></line>
+  <line x1="600" y1="350" x2="700" y2="450" stroke="#0ea5e9" stroke-width="1"></line>
+  <line x1="700" y1="450" x2="800" y2="250" stroke="#0ea5e9" stroke-width="1"></line>
+  <line x1="800" y1="250" x2="900" y2="550" stroke="#0ea5e9" stroke-width="1"></line>
+  <line x1="900" y1="550" x2="1000" y2="400" stroke="#0ea5e9" stroke-width="1"></line>
+
+  <!-- Títulos invisíveis para acessibilidade -->
+  <title>Background gráfico com conexões de dados</title>
+</svg>
