@@ -16,7 +16,6 @@
             left: 0;
             width: 100%;
             background-color: transparent;
-            /* Fundo transparente na página inicial */
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             z-index: 1000;
             display: flex;
@@ -24,48 +23,23 @@
             align-items: center;
             padding: 10px 20px;
             transition: background-color 0.3s ease, color 0.3s ease;
-            /* Transição suave para o fundo e cor do texto */
         }
 
-        /* Cor do texto do menu quando o fundo é transparente (página inicial) */
+        /* Estilo dos links do menu */
         .sticky-menu a {
             color: white;
-            /* Texto branco na página inicial */
-            transition: color 0.3s ease;
-            /* Suavizar a transição da cor do texto */
+            text-decoration: none;
+            padding: 10px 15px;
+            transition: color 0.3s ease, background-color 0.3s ease;
         }
 
-        /* Quando o fundo do menu for branco (após rolar para a seção) */
-        .sticky-menu.white-background {
-            background-color: rgba(255, 255, 255, 0.95);
-            /* Fundo branco */
-        }
-
-        /* Quando o fundo for branco, a cor do texto volta para azul */
-        .sticky-menu.white-background a {
-            color: #005b96;
-            /* Cor azul do texto */
-        }
-
-        /* Hover do link do menu (mudança de fundo azul e texto branco) */
-        .sticky-menu a:hover {
-            background-color: #005b96;
-            /* Fundo azul */
-            color: white;
-            /* Texto branco quando passar o mouse */
-        }
-
-        /* Responsividade: Ajuste do menu */
-        @media screen and (min-width: 769px) {
-            .menu-items a {
-                padding: 15px 15px;
-            }
-        }
-
+        /* Botão de menu (hambúrguer) */
         .menu-button {
-            display: flex;
-            align-items: center;
             cursor: pointer;
+            display: none;
+            /* Oculto em telas grandes */
+            align-items: center;
+            z-index: 1001;
             background: none;
             border: none;
             outline: none;
@@ -75,7 +49,7 @@
             position: relative;
             width: 22px;
             height: 2px;
-            background-color: #005b96;
+            background-color: white;
             transition: background-color 0.3s;
         }
 
@@ -85,7 +59,7 @@
             position: absolute;
             width: 22px;
             height: 2px;
-            background-color: #005b96;
+            background-color: white;
             transition: transform 0.3s;
         }
 
@@ -97,6 +71,7 @@
             transform: translateY(7px);
         }
 
+        /* Estilo para o botão quando o menu está aberto */
         .menu-open .menu-icon {
             background-color: transparent;
         }
@@ -110,46 +85,48 @@
         }
 
         .menu-text {
-            font-weight: 600;
-            color: #005b96;
-            margin-left: 10px;
-        }
-
-        .menu-items {
-            display: flex !important;
-            flex-direction: row;
-            justify-content: center;
-            /* ← agora centraliza */
-            background: transparent;
-            width: 100%;
-            /* ocupa toda a largura para centralizar de fato */
-        }
-
-        .menu-items a.active {
-            color: #005b96;
-            font-weight: bold;
-        }
-
-        .menu-open .menu-items {
-            display: flex;
-        }
-
-        .menu-items a {
-            padding: 15px 20px;
+            margin-left: 8px;
             color: white;
-            /* Texto branco na página inicial */
-            text-decoration: none;
-            border-top: 1px solid #eee;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        /* Container para os itens do menu */
+        .menu-items {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
             transition: all 0.3s ease;
         }
 
-        /* Hover e destaque - mudando a cor para branco quando passar o mouse */
-        .menu-items a:hover {
+        /* Quando o fundo do menu for branco */
+        .sticky-menu.white-background {
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Quando o fundo for branco, a cor do texto volta para azul */
+        .sticky-menu.white-background a,
+        .sticky-menu.white-background .menu-text {
+            color: #005b96;
+        }
+
+        .sticky-menu.white-background .menu-icon,
+        .sticky-menu.white-background .menu-icon::before,
+        .sticky-menu.white-background .menu-icon::after {
+            background-color: #005b96;
+        }
+
+        .sticky-menu.white-background .menu-open .menu-icon {
+            background-color: transparent;
+        }
+
+        /* Hover do link do menu */
+        .sticky-menu a:hover {
             background-color: #005b96;
             color: white;
-            /* Texto branco ao passar o mouse */
             border-radius: 8px;
-            /* <<< adiciona cantos arredondados */
         }
 
         /* ITEM ATIVO COM DESTAQUE */
@@ -159,61 +136,89 @@
             font-weight: bold;
         }
 
-        @media screen and (min-width: 769px) {
+        /* Media queries para tornar o menu responsivo */
+        @media screen and (max-width: 768px) {
+
+            /* Mostrar botão de menu em telas pequenas */
             .menu-button {
-                display: none;
+                display: flex;
+                position: absolute;
+                top: 15px;
+                right: 20px;
+            }
+
+            /* Reorganizar layout do menu em telas pequenas */
+            .sticky-menu {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px;
+            }
+
+            /* Comportamento padrão dos itens de menu em tela pequena (oculto) */
+            .menu-items {
+                display: none !important;
+                /* Inicialmente oculto */
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+                background-color: rgba(0, 0, 0, 0.9);
+                /* Fundo escuro para o menu */
+                padding-top: 20px;
+                padding-bottom: 10px;
+                margin-top: 10px;
+            }
+
+            .sticky-menu.white-background .menu-items {
+                background-color: rgba(255, 255, 255, 0.95);
+            }
+
+            /* Quando o menu está aberto em telas pequenas */
+            .menu-open .menu-items {
+                display: flex !important;
+                /* Força a exibição quando o menu está aberto */
+            }
+
+            /* Estilo dos links no menu móvel */
+            .menu-items a {
+                width: 100%;
+                text-align: center;
+                padding: 15px 0;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .sticky-menu.white-background .menu-items a {
+                border-top: 1px solid rgba(0, 91, 150, 0.1);
+            }
+
+            .menu-items a:hover {
+                border-radius: 0;
+                /* Remove border-radius no mobile */
+            }
+        }
+
+        /* Para telas maiores */
+        @media screen and (min-width: 769px) {
+            .menu-items a {
+                padding: 15px 15px;
+                border-top: none;
+            }
+
+            .menu-button {
+                display: none !important;
+                /* Garante que o botão menu esteja oculto em telas grandes */
             }
 
             .menu-items {
                 display: flex !important;
                 flex-direction: row;
                 justify-content: center;
-                /* ← centraliza */
                 align-items: center;
                 background: transparent;
                 width: 100%;
-                /* ← garante que ocupe toda a largura */
                 padding: 0;
                 margin: 0 auto;
             }
-
-            .menu-items a {
-                border-top: none;
-                padding: 15px 15px;
-                text-align: center;
-            }
         }
-
-        /* === FIXANDO O MENU COM COR DE FUNDO BRANCO E COR DO TEXTO AZUL === */
-        /* Quando o fundo do menu for branco (após rolar para a seção) */
-        .sticky-menu.white-background {
-            background-color: rgba(255, 255, 255, 0.95);
-            /* Fundo branco */
-        }
-
-        /* Quando o fundo for branco, a cor do texto muda para azul */
-        .sticky-menu.white-background a {
-            color: #005b96;
-            /* Cor azul do texto */
-        }
-
-        /* === ALTERAÇÃO NA COR DO TEXTO NA PÁGINA INICIAL === */
-        .sticky-menu.white-background a {
-            color: #005b96;
-            /* Cor azul do texto após rolar */
-        }
-
-        /* Garantir que o texto do item do menu sempre se torne branco ao passar o mouse, independentemente da seção */
-        .sticky-menu a:hover {
-            color: white;
-            /* Texto sempre branco no hover */
-        }
-
-
-
-
-
-
 
         html {
             scroll-behavior: smooth;
@@ -2443,6 +2448,122 @@
         if (document.readyState === 'interactive' || document.readyState === 'complete') {
             setupCursosPagination();
         }
+
+        // Função para alternar o menu móvel
+        function toggleMenu() {
+            const menuButton = document.querySelector('.menu-button');
+            const menuItems = document.querySelector('.menu-items');
+
+            // Alternar classe no botão
+            menuButton.classList.toggle('menu-open');
+
+            // Alternar visibilidade dos itens do menu
+            menuItems.classList.toggle('show');
+
+            // Log para depuração (pode remover depois)
+            console.log('Menu toggled, show class:', menuItems.classList.contains('show'));
+        }
+
+        // Mudar cor de fundo do menu ao rolar
+        window.addEventListener('scroll', function() {
+            const stickyMenu = document.getElementById('sticky-menu');
+            if (window.scrollY > 50) {
+                stickyMenu.classList.add('white-background');
+            } else {
+                stickyMenu.classList.remove('white-background');
+            }
+        });
+
+        // Fechar menu ao clicar em um link
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuLinks = document.querySelectorAll('.menu-items a');
+
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    const menuItems = document.querySelector('.menu-items');
+                    const menuButton = document.querySelector('.menu-button');
+
+                    // Em telas pequenas, fechar o menu após clicar
+                    if (window.innerWidth <= 768) {
+                        menuItems.classList.remove('show');
+                        menuButton.classList.remove('menu-open');
+                    }
+                });
+            });
+
+            // Verificar a largura da tela ao carregar e redimensionar
+            function checkScreenSize() {
+                const menuItems = document.querySelector('.menu-items');
+                const menuButton = document.querySelector('.menu-button');
+
+                if (window.innerWidth <= 768) {
+                    // Em telas pequenas, garantir que o menu esteja oculto por padrão
+                    menuItems.classList.remove('show');
+                    menuButton.classList.remove('menu-open');
+                }
+            }
+
+            // Verificar no carregamento
+            checkScreenSize();
+
+            // Verificar ao redimensionar
+            window.addEventListener('resize', checkScreenSize);
+        });
+
+        // Função para alternar o menu mobile
+        function toggleMenu() {
+            const stickyMenu = document.getElementById('sticky-menu');
+            stickyMenu.classList.toggle('menu-open');
+        }
+
+        // Função para adicionar a classe white-background quando a página é rolada
+        document.addEventListener('DOMContentLoaded', function() {
+            // Referência ao menu
+            const stickyMenu = document.getElementById('sticky-menu');
+
+            // Ouvinte de evento para detectar rolagem
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    stickyMenu.classList.add('white-background');
+                } else {
+                    stickyMenu.classList.remove('white-background');
+                }
+            });
+
+            // Fechar o menu ao clicar em um item do menu no mobile
+            const menuLinks = document.querySelectorAll('.menu-items a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        stickyMenu.classList.remove('menu-open');
+                    }
+                });
+            });
+
+            // Adicionar classe active ao item de menu correspondente à seção atual
+            function setActiveMenuItem() {
+                const sections = document.querySelectorAll('section[id]');
+                const scrollY = window.pageYOffset;
+
+                sections.forEach(section => {
+                    const sectionHeight = section.offsetHeight;
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionId = section.getAttribute('id');
+
+                    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                        document.querySelector('.menu-items a[href*=' + sectionId + ']')?.classList.add('active');
+                    } else {
+                        document.querySelector('.menu-items a[href*=' + sectionId + ']')?.classList.remove('active');
+                    }
+                });
+            }
+
+            // Ativar detecção de seção ao rolar
+            window.addEventListener('scroll', setActiveMenuItem);
+
+            // Verificar seção atual ao carregar a página
+            setActiveMenuItem();
+        });
     </script>
 </body>
 
