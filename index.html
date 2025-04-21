@@ -23,6 +23,8 @@
             align-items: center;
             padding: 10px 20px;
             transition: background-color 0.3s ease, color 0.3s ease;
+            margin: 0;
+            box-sizing: border-box;
         }
 
         /* Estilo dos links do menu */
@@ -104,6 +106,11 @@
         /* Quando o fundo do menu for branco */
         .sticky-menu.white-background {
             background-color: rgba(255, 255, 255, 0.95);
+            left: 0;
+            right: 0;
+            width: 100%;
+            margin: 0;
+            padding: 10px 20px;
         }
 
         /* Quando o fundo for branco, a cor do texto volta para azul */
@@ -139,19 +146,36 @@
         /* Media queries para tornar o menu responsivo */
         @media screen and (max-width: 768px) {
 
-            /* Mostrar botão de menu em telas pequenas */
+            /* Remover barrinhas brancas */
+            html,
+            body {
+                overflow-x: hidden;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Mostrar botão de menu em telas pequenas e posicionar à esquerda */
             .menu-button {
                 display: flex;
                 position: absolute;
                 top: 15px;
-                right: 20px;
+                left: 20px;
+                right: auto;
             }
 
             /* Reorganizar layout do menu em telas pequenas */
             .sticky-menu {
                 flex-direction: column;
-                align-items: flex-start;
-                padding: 10px;
+                align-items: center;
+                padding: 10px 0;
+                width: 100vw;
+                /* Largura total da viewport */
+                max-width: 100%;
+                /* Garantir que não exceda a largura */
+                left: 0;
+                right: 0;
+                margin: 0;
             }
 
             /* Comportamento padrão dos itens de menu em tela pequena (oculto) */
@@ -159,17 +183,20 @@
                 display: none !important;
                 /* Inicialmente oculto */
                 flex-direction: column;
-                width: 100%;
+                width: 100vw;
+                /* Largura total da viewport */
+                max-width: 100%;
+                /* Garantir que não exceda a largura */
                 align-items: center;
+                justify-content: center;
                 background-color: rgba(0, 0, 0, 0.9);
                 /* Fundo escuro para o menu */
-                padding-top: 20px;
-                padding-bottom: 10px;
-                margin-top: 10px;
-            }
-
-            .sticky-menu.white-background .menu-items {
-                background-color: rgba(255, 255, 255, 0.95);
+                padding: 30px 0 15px 0;
+                margin: 0;
+                position: relative;
+                left: 0;
+                right: 0;
+                box-sizing: border-box;
             }
 
             /* Quando o menu está aberto em telas pequenas */
@@ -181,9 +208,29 @@
             /* Estilo dos links no menu móvel */
             .menu-items a {
                 width: 100%;
+                /* Ocupa 100% da largura */
                 text-align: center;
                 padding: 15px 0;
                 border-top: 1px solid rgba(255, 255, 255, 0.1);
+                margin: 0;
+                box-sizing: border-box;
+            }
+
+            .sticky-menu.white-background {
+                background-color: rgba(255, 255, 255, 0.95);
+                width: 100vw;
+                max-width: 100%;
+                box-sizing: border-box;
+                left: 0;
+                right: 0;
+                margin: 0;
+                padding: 10px 0;
+            }
+
+            .sticky-menu.white-background .menu-items {
+                background-color: rgba(255, 255, 255, 0.95);
+                width: 100vw;
+                max-width: 100%;
             }
 
             .sticky-menu.white-background .menu-items a {
@@ -254,6 +301,9 @@
             background-size: cover;
             color: white;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .overlay {
@@ -268,13 +318,11 @@
         }
 
         .hero-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: relative;
             text-align: center;
             max-width: 90%;
             z-index: 2;
+            padding: 20px;
         }
 
         .hero-content h1 {
@@ -302,18 +350,65 @@
         .no-wrap {
             white-space: nowrap;
             font-size: 3rem;
-
         }
 
         .hero-content h1.no-wrap {
             font-size: 3rem;
-            /* menor pra evitar quebra */
         }
-
 
         .highlight {
             font-size: 3rem;
             text-transform: uppercase;
+        }
+
+        /* Media queries para responsividade */
+        @media screen and (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content h1.no-wrap {
+                font-size: 2rem;
+                white-space: normal;
+                /* Permite quebra de linha se necessário */
+            }
+
+            .highlight {
+                font-size: 1.8rem;
+            }
+
+            .hero-content h2 {
+                font-size: 1.2rem;
+            }
+
+            .hero-content p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Para telas muito pequenas */
+        @media screen and (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-content h1.no-wrap {
+                font-size: 1.8rem;
+            }
+
+            .highlight {
+                font-size: 1.6rem;
+            }
+
+            .hero-content h2 {
+                font-size: 1rem;
+                margin-top: 8px;
+            }
+
+            .hero-content p {
+                font-size: 0.85rem;
+                margin-top: 15px;
+            }
         }
 
         .baixar-cv {
@@ -2514,12 +2609,24 @@
         function toggleMenu() {
             const stickyMenu = document.getElementById('sticky-menu');
             stickyMenu.classList.toggle('menu-open');
+
+            // Impedir rolagem quando o menu está aberto
+            if (stickyMenu.classList.contains('menu-open')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
         }
 
         // Função para adicionar a classe white-background quando a página é rolada
         document.addEventListener('DOMContentLoaded', function() {
             // Referência ao menu
             const stickyMenu = document.getElementById('sticky-menu');
+
+            // Configuração inicial ao carregar - verificar se precisa da classe white-background
+            if (window.scrollY > 50) {
+                stickyMenu.classList.add('white-background');
+            }
 
             // Ouvinte de evento para detectar rolagem
             window.addEventListener('scroll', function() {
@@ -2536,8 +2643,17 @@
                 link.addEventListener('click', function() {
                     if (window.innerWidth <= 768) {
                         stickyMenu.classList.remove('menu-open');
+                        document.body.style.overflow = '';
                     }
                 });
+            });
+
+            // Atualizar ao redimensionar a janela
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768 && stickyMenu.classList.contains('menu-open')) {
+                    stickyMenu.classList.remove('menu-open');
+                    document.body.style.overflow = '';
+                }
             });
 
             // Adicionar classe active ao item de menu correspondente à seção atual
