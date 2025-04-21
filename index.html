@@ -844,6 +844,28 @@
             .contato-btn {
                 width: 100%;
                 text-align: center;
+                white-space: normal;
+                /* Permite que o texto quebre em várias linhas */
+                font-size: 0.8rem;
+                /* Reduz o tamanho da fonte no mobile */
+                padding: 8px 10px;
+                /* Reduz o padding para tornar o botão mais compacto */
+                box-sizing: border-box;
+                /* Garante que padding não aumente a largura total */
+                margin-top: 5px;
+                /* Adiciona um pequeno espaço acima do botão */
+                display: block;
+                /* Garante que o botão ocupe toda a largura disponível */
+            }
+        }
+
+        /* Para telas ainda menores (smartphones pequenos) */
+        @media screen and (max-width: 480px) {
+            .contato-btn {
+                font-size: 0.75rem;
+                /* Reduz ainda mais a fonte para telas muito pequenas */
+                padding: 7px 8px;
+                /* Reduz ainda mais o padding */
             }
         }
 
